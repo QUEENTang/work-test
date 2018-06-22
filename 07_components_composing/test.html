@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>05_components_composing</title>
+</head>
+<body>
+
+  <div id="example"></div>
+  <div id="example1"></div>
+
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/prop-types.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/babel">
+
+/*    class App extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                chats : ["花开", "花落", "叶飘零"]
+            }
+        }
+
+        addTodo = (todo) => {
+
+            const {chats} = this.state;
+
+            chats.unshift(todo);
+
+            this.setState({chats})
+        };
+
+        render() {
+            const {chats} = this.state;
+            return(
+                <div>
+                  <Add addTodo={this.addTodo} size={chats.length}/>
+                  <List chats={chats}/>
+                </div>
+            )
+        }
+    }
+    class Add extends React.Component {
+
+        add = () => {
+            const todo = this.refs.inputTodo.value.trim();
+            if(!todo) {
+                return
+            }
+
+            this.props.addTodo(todo);
+
+            this.refs.inputTodo.value = ""
+        };
+
+        render() {
+            const {size} = this.props;
+            return(
+                <div>
+                  <input type="text" ref="inputTodo"/>
+                  <button onClick={this.add}>Add #{size}</button>
+                </div>
+            )
+        }
+    }
+    Add.propTypes = {
+        addTodo: PropTypes.func.isRequired,
+        size: PropTypes.number.isRequired
+    };
+
+    class List extends React.Component {
+        render() {
+            const {chats} = this.props;
+
+            return(
+                <ul>
+                    {
+                        chats.map((todo,index) => {
+                            return <li key={index}>{todo}</li>
+                        })
+                    }
+                </ul>
+            )
+        }
+    }
+
+    List.propTypes = {
+        chats: PropTypes.array.isRequired
+    };
+
+    ReactDOM.render(<App/>, document.getElementById('example'));*/
+
+class App extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            chats:["代码", "编程", "程序员"]
+        }
+    }
+
+    addTodo = (todo) => {
+        const {chats} = this.state;
+
+        chats.unshift(todo);
+
+        this.setState({chats})
+
+    };
+
+    render () {
+        const {chats} = this.state;
+        return(
+            <div>
+              <Add addTodo={this.addTodo} size={chats.length}/>
+              <List chats={chats}/>
+            </div>
+        )
+    }
+}
+
+class Add extends React.Component {
+
+    add = () => {
+        const todo = this.refs.inputs.value.trim();
+        if(!todo) {
+            return
+        }
+
+        this.props.addTodo(todo);
+
+        this.refs.inputs.value = "";
+
+    };
+
+    render () {
+        const {size} = this.props;
+        return(
+            <div>
+              <input type="text" ref="inputs"/>
+              <button onClick={this.add}>Add #{size}</button>
+            </div>
+        )
+    }
+}
+
+Add.propTypes = {
+    addTodo: PropTypes.func.isRequired,
+    size: PropTypes.number.isRequired
+};
+
+class List extends React.Component {
+    render () {
+        const {chats} = this.props;
+        return(
+            <ul>
+                {
+                    chats.map((todo, index) => {
+                        return <li key={index}>{todo}</li>
+                    })
+                }
+            </ul>
+        )
+    }
+}
+
+List.propTypes = {
+    chats: PropTypes.array.isRequired
+};
+
+ReactDOM.render(<App/>, document.getElementById('example1'))
+
+
+
+  </script>
+</body>
+</html>
